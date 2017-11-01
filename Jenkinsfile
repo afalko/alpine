@@ -1,8 +1,11 @@
 pipeline {
     agent any
     stages {
-        stage('Test') {
+        stage('Build and Test') {
             steps {
+                sh 'sudo alpine-chroot-install/alpine-chroot-install'
+                sh '(cd /alpine; tar -cvf root.tar * --exclude proc --exclude sys --exclude root.tar)'
+                sh 'mv /alpine/root.tar .'
                 sh 'docker build -t afalko/alpine'
             }
         }
