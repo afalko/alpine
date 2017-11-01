@@ -12,7 +12,7 @@ pipeline {
                 sh 'sudo alpine-chroot-install/alpine-chroot-install -m http://nl.alpinelinux.org/alpine'
                 sh '(cd /alpine; sudo tar -cvf root.tar * --exclude proc --exclude sys --exclude root.tar)'
                 sh 'sudo mv /alpine/root.tar . && sudo chown ec2-user:ec2-user root.tar'
-                sh "docker build -t afalko/alpine:${env.BUILD_NUMBER} ."
+                sh "docker build -t afalko/alpine:${BUILD_ID} ."
             }
         }
         stage('Publish') {
@@ -21,7 +21,7 @@ pipeline {
             }
             steps {
 			    sh "docker login -u afalko -p ${DOCKER_PASSWORD}"
-                sh "docker push afalko/alpine:${env.BUILD_NUMER}"
+                sh "docker push afalko/alpine:${BUILD_ID}"
             }
         }
         stage('Update Docker Images') {
