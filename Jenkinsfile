@@ -6,7 +6,7 @@ pipeline {
                 sh 'sudo alpine-chroot-install/alpine-chroot-install'
                 sh '(cd /alpine; tar -cvf root.tar * --exclude proc --exclude sys --exclude root.tar)'
                 sh 'mv /alpine/root.tar .'
-                sh 'docker build -t afalko/alpine'
+                sh 'docker build -t afalko/alpine .'
             }
         }
         stage('Publish') {
