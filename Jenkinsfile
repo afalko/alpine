@@ -3,7 +3,8 @@ pipeline {
     stages {
         stage('Build and Test') {
             steps {
-                sh 'sudo rm -rf /alpine && sudo umount -R /alpine/*'
+                sh 'sudo umount -R /alpine/proc && sudo umount -R /alpine/sys && sudo umount -R /alpine/dev'
+				sh 'sudo rm -rf /alpine'
                 sh 'sudo alpine-chroot-install/alpine-chroot-install -m http://nl.alpinelinux.org/alpine'
                 sh '(cd /alpine; sudo tar -cvf root.tar * --exclude proc --exclude sys --exclude root.tar)'
                 sh 'sudo mv /alpine/root.tar . && sudo chown ec2-user:ec2-user root.tar'
