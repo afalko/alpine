@@ -3,7 +3,9 @@ pipeline {
     stages {
         stage('Build and Test') {
             steps {
-                sh 'sudo umount -R /alpine/proc && sudo umount -R /alpine/sys && sudo umount -R /alpine/dev'
+                sh 'sudo umount -R /alpine/proc || exit 0' 
+				sh 'sudo umount -R /alpine/sys || exit 0'
+				sh 'sudo umount -R /alpine/dev || exit 0'
 				sh 'sudo rm -rf /alpine'
                 sh 'sudo alpine-chroot-install/alpine-chroot-install -m http://nl.alpinelinux.org/alpine'
                 sh '(cd /alpine; sudo tar -cvf root.tar * --exclude proc --exclude sys --exclude root.tar)'
