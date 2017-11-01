@@ -20,7 +20,7 @@ pipeline {
                 DOCKER_PASSWORD = credentials('DOCKER_PASSWORD') 
             }
             steps {
-			    sh 'docker login -u afalko -p '
+			    sh "docker login -u afalko -p ${DOCKER_PASSWORD}"
                 sh "docker push afalko/alpine:${env.BUILD_NUMER}"
             }
         }
