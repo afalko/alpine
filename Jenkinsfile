@@ -25,8 +25,15 @@ pipeline {
             }
         }
         stage('Update Docker Images') {
+		    environment {
+				git_api_url = 'https://api.github.com'
+				git_api_token = credentials('DOCKERFILE_IMAGE_UPDATE_TOKEN')
+				image_map_store = 'afalko/dockerfile-image-update-df2017-demo'
+			}
             steps {
-                sh 'echo run dockerfile-image-update'
+                sh "docker run --rm -e git_api_token -e git_api_url \
+					salesforce/dockerfile-image-update --org afalko \
+					parent afalko/alpine ${BUILD_ID} ${image_map_store}"
             }
         }
     }
