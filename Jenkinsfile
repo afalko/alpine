@@ -3,6 +3,7 @@ pipeline {
     stages {
         stage('Build and Test') {
             steps {
+                sh 'git submodule update --init'
                 sh 'sudo alpine-chroot-install/alpine-chroot-install'
                 sh '(cd /alpine; tar -cvf root.tar * --exclude proc --exclude sys --exclude root.tar)'
                 sh 'mv /alpine/root.tar .'
