@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build and Test') {
             steps {
-                sh 'sudo alpine-chroot-install/alpine-chroot-install'
+                sh 'sudo alpine-chroot-install/alpine-chroot-install -m http://nl.alpinelinux.org/alpine'
                 sh '(cd /alpine; tar -cvf root.tar * --exclude proc --exclude sys --exclude root.tar)'
                 sh 'mv /alpine/root.tar .'
                 sh 'docker build -t afalko/alpine .'
