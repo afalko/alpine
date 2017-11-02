@@ -19,6 +19,11 @@ pipeline {
 		    environment { 
                 DOCKER_PASSWORD = credentials('DOCKER_PASSWORD') 
             }
+            when {
+                expression {
+                    BRANCH_NAME == "master"
+                }
+            }
             steps {
 			    sh "docker login -u afalko -p ${DOCKER_PASSWORD}"
                 sh "docker push afalko/alpine:${BUILD_ID}"
