@@ -30,6 +30,11 @@ pipeline {
             }
         }
         stage('Update Docker Images') {
+            when {
+                expression {
+                    BRANCH_NAME == "master"
+                }
+            }
 		    environment {
 				git_api_url = 'https://api.github.com'
 				git_api_token = credentials('DOCKERFILE_IMAGE_UPDATE_TOKEN')
