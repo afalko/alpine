@@ -16,8 +16,8 @@ pipeline {
             }
         }
         stage('Publish') {
-		    environment { 
-                DOCKER_PASSWORD = credentials('DOCKER_PASSWORD') 
+	    environment { 
+            DOCKER_PASSWORD = credentials('DOCKER_PASSWORD') 
             }
             when {
                 expression {
