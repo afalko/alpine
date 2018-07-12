@@ -25,7 +25,7 @@ pipeline {
                 }
             }
             steps {
-			    sh "docker login -u afalko -p ${DOCKER_PASSWORD}"
+                sh "docker login -u afalko -p ${DOCKER_PASSWORD}"
                 sh "docker push afalko/alpine:${BUILD_ID}"
             }
         }
