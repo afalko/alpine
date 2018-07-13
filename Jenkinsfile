@@ -8,7 +8,7 @@ pipeline {
                 sh 'sudo umount -R /alpine/dev || exit 0'
                 sh 'sudo umount -R /alpine/run || exit 0'
                 sh '[ -e /alpine/var/lib/jenkins/workspace ] && sudo umount -R /alpine/var/lib/jenkins/workspace/* || exit 0'
-                sh 'sudo find /alpine -maxdepth 1 -name '*/sys/*' -prune -o -print0 | xargs -0 -i rm -rf {}'
+                sh 'sudo find /alpine -maxdepth 1 -name \'*/sys/*\' -prune -o -print0 | xargs -0 -i rm -rf {}'
                 sh 'sudo alpine-chroot-install/alpine-chroot-install -m http://nl.alpinelinux.org/alpine'
                 sh '(cd /alpine; sudo tar -cvf root.tar * --exclude proc --exclude sys --exclude root.tar)'
                 sh 'sudo mv /alpine/root.tar . && sudo chown ec2-user:ec2-user root.tar'
