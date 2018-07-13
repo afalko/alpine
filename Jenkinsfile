@@ -26,7 +26,7 @@ pipeline {
             }
             steps {
                 sh "docker login -u afalko -p ${DOCKER_PASSWORD}"
-                sh "ddocker push afalko/alpine:${BUILD_ID}"
+                sh "docker push afalko/alpine:${BUILD_ID}"
             }
         }
         stage('Update Docker Images') {
