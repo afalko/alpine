@@ -38,7 +38,7 @@ pipeline {
             environment {
                 git_api_url = 'https://api.github.com'
                 git_api_token = credentials('DOCKERFILE_IMAGE_UPDATE_TOKEN')
-                image_map_store = 'docker-tag-store-df17-demo'
+                image_map_store = 'docker-tag-store-demo'
             }
             steps {
                 sh "docker run --rm -e git_api_token -e git_api_url \
