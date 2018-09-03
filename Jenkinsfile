@@ -25,17 +25,15 @@ pipeline {
                 }
             }
             steps {
-                // Move to another workspace to avoid keyfile to be visible
-                ws "${HOME}/tmp" {
-                    sh "echo ${DOCKER_PASSWORD} | docker login -u afalko --password-stdin"
-                    sh "docker push afalko/alpine:${BUILD_ID}"
-                    // Push to GCR for vulnerability analysis
-                    withCredentials([file(credentialsId: 'gcr-push', variable: 'KEYFILE')]) {
-                        sh "docker login -u _json_key --password-stdin https://gcr.io < ${KEYFILE}"
-                    }
-                    sh "docker tag afalko/alpine:${BUILD_ID} gcr.io/eternal-autumn-215306/alpine:${BUILD_ID}"
-                    sh "docker push gcr.io/eternal-autumn-215306/alpine:${BUILD_ID}"
+
+                sh "echo ${DOCKER_PASSWORD} | docker login -u afalko --password-stdin"
+                sh "docker push afalko/alpine:${BUILD_ID}"
+                // Push to GCR for vulnerability analysis
+                withCredentials([file(credentialsId: 'gcr-push', variable: 'KEYFILE')]) {
+                    sh "docker login -u _json_key --password-stdin https://gcr.io < ${KEYFILE}"
                 }
+                sh "docker tag afalko/alpine:${BUILD_ID} gcr.io/eternal-autumn-215306/alpine:${BUILD_ID}"
+                sh "docker push gcr.io/eternal-autumn-215306/alpine:${BUILD_ID}"
             }
         }
         stage('Update Docker Images') {
