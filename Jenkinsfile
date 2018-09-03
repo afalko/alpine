@@ -7,11 +7,11 @@ pipeline {
                 sh 'sudo umount -R /alpine/sys || exit 0'
                 sh 'sudo umount -R /alpine/dev || exit 0'
                 sh 'sudo umount -R /alpine/run || exit 0'
-                sh 'sudo umount -R /alpine/home/ec2-user/workspace/* || exit 0'
+                sh 'sudo umount -R /alpine/home/${USER}/workspace/* || exit 0'
                 sh 'sudo find /alpine -maxdepth 1 -mindepth 1 -path /alpine/dev -prune -o -path /alpine/sys -prune -o -print0 | xargs -0 -i sudo rm -rf {}'
                 sh 'sudo alpine-chroot-install/alpine-chroot-install -m http://nl.alpinelinux.org/alpine'
                 sh '(cd /alpine; sudo tar -cvf root.tar * --exclude proc --exclude sys --exclude root.tar)'
-                sh 'sudo mv /alpine/root.tar . && sudo chown ec2-user:ec2-user root.tar'
+                sh 'sudo mv /alpine/root.tar . && sudo chown ${USER}:${USER} root.tar'
                 sh "docker build -t afalko/alpine:${BUILD_ID} ."
             }
         }
