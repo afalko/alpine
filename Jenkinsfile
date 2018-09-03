@@ -25,7 +25,8 @@ pipeline {
                 }
             }
             steps {
-                ws {
+                // Move to another workspace to avoid keyfile to be visible
+                ws "${HOME}/tmp" {
                     sh "echo ${DOCKER_PASSWORD} | docker login -u afalko --password-stdin"
                     sh "docker push afalko/alpine:${BUILD_ID}"
                     // Push to GCR for vulnerability analysis
