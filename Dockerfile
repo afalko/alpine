@@ -1,4 +1,4 @@
-FROM SCRATCH
+FROM scratch
 #FROM afalko/alpine:5
 
 ADD root.tar /
