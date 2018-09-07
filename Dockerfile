@@ -1,6 +1,6 @@
 FROM scratch
 # Vulnerable version
-#FROM afalko/alpine:5
+FROM afalko/alpine:34
 
 ADD root.tar /
 
