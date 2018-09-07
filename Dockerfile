@@ -1,7 +1,7 @@
-#FROM scratch
+FROM scratch
 # Vulnerable version
-FROM afalko/alpine:5
+#FROM afalko/alpine:5
 
-#ADD root.tar /
+ADD root.tar /
 
 CMD ["/bin/sh"]
